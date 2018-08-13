@@ -1,6 +1,6 @@
 {
   "name": "react-firebase-auth-provider",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "jsnext:main": "dist/index.esm.js",
@@ -26,5 +26,8 @@
   },
   "peerDependencies": {
     "firebase": ">=4"
+  },
+  "repository": {
+    "url": "https://github.com/rakannimer/react-firebase-auth-provider"
   }
 }
