@@ -7,8 +7,8 @@ React Firebase Auth exports the following components :
 - FirebaseAuthProvider
 - FirebaseAuthConsumer
 - IfFirebaseAuthed
+- IfFirebaseAuthedAnd
 - IfFirebaseUnAuthed
-- WithFirebaseAuthMethods
 
 ### Usage
 
@@ -37,35 +37,75 @@ import "firebase/auth";
 import {
   FirebaseAuthProvider,
   IfFirebaseUnAuthed,
-  IfFirebaseAuthed
+  IfFirebaseAuthed,
+  FirebaseAuthConsumer,
+  IfFirebaseAuthedAnd
 } from "react-firebase-auth-provider";
+
+const config = {
+  apiKey: "API_KEY",
+  authDomain: "AUTH_DOMAIN",
+  projectId: "PROJECT_ID",
+
+  // OPTIONAL
+  databaseURL: "DATABASE_URL",
+  storageBucket: "STORAGE_BUCKET",
+  messagingSenderId: "MESSAGING_SENDER_ID"
+};
 
 const MyApp = () => {
   return (
-    <AuthProvider firebase={firebase} {...config}>
+    <FirebaseAuthProvider {...config} firebase={firebase}>
       <div>
-        <IfFirebaseUnAuthed>
-          <div>You are unauthed ! Authenticate to continue</div>
-        </IfFirebaseUnAuthed>
-        <IfFirebaseAuthed>
-          <div>You are authed !</div>
-        </IfFirebaseAuthed>
+        <button
+          onClick={() => {
+            const googleAuthProvider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(googleAuthProvider);
+          }}
+        >
+          Sign In with Google
+        </button>
         <button
           onClick={() => {
             firebase.auth().signInAnonymously();
           }}
         >
-          Sign in anonymously
+          Sign In Anonymously
         </button>
         <button
           onClick={() => {
             firebase.auth().signOut();
           }}
         >
-          Sign in anonymously
+          Sign Out
         </button>
+        <FirebaseAuthConsumer>
+          {({ isSignedIn, user, providerId }) => {
+            return (
+              <pre style={{ height: 300, overflow: "auto" }}>
+                {JSON.stringify({ isSignedIn, user, providerId }, null, 2)}
+              </pre>
+            );
+          }}
+        </FirebaseAuthConsumer>
+        <div>
+          <IfFirebaseAuthed>
+            {() => {
+              return <div>You are authenticated</div>;
+            }}
+          </IfFirebaseAuthed>
+          <IfFirebaseAuthedAnd
+            filter={({ providerId }) => providerId !== "anonymous"}
+          >
+            {({ providerId }) => {
+              return <div>You are authenticated with {providerId}</div>;
+            }}
+          </IfFirebaseAuthedAnd>
+        </div>
       </div>
-    </AuthProvider>
+    </FirebaseAuthProvider>
   );
 };
 ```
+
+## [Reference](https://firebase.google.com/docs/auth/)
