@@ -6,6 +6,10 @@
   "jsnext:main": "dist/index.esm.js",
   "umd": "dist/index.umd.js",
   "license": "GPL-3.0-only",
+  "author": {
+    "name": "rakannimer",
+    "email": "rakannimer@gmail.com"
+  },
   "scripts": {
     "dev": "parcel src/demo/index.html -d tmp-demo-dir",
     "build": "rollup -c",
