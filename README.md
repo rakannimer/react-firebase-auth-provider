@@ -1,3 +1,7 @@
+## Docs moved to : https://react-firebase-js.com/docs/react-firebase-auth/getting-started
+
+## Source code moved to : https://github.com/rakannimer/react-firebase/
+
 # React Firebase Auth
 
 Easily integrate Firebase Authentication in your react(-native) app.
@@ -9,6 +13,8 @@ React Firebase Auth exports the following components :
 - IfFirebaseAuthed
 - IfFirebaseAuthedAnd
 - IfFirebaseUnAuthed
+
+
 
 ### Usage
 
